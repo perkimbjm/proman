@@ -4,7 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-
 return new class extends Migration
 {
     /**
@@ -12,22 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        // Cek dan instal ekstensi PostGIS jika belum ada
-        // DB::statement('CREATE EXTENSION IF NOT EXISTS postgis;');
-
-        // Membuat tabel districts
-        Schema::create('districts', function (Blueprint $table) {
+        Schema::create('personal_access_tokens', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
+            $table->morphs('tokenable');
             $table->string('name');
-            $table->string('slug');
+            $table->string('token', 64)->unique();
+            $table->text('abilities')->nullable();
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
-
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -35,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('districts');
+        Schema::dropIfExists('personal_access_tokens');
     }
 };

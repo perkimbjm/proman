@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TicketStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,7 @@ class Ticket extends Model
         'user_id' => 'integer',
         'district_id' => 'integer',
         'village_id' => 'integer',
+        'status' => TicketStatus::class
     ];
 
     public function user(): BelongsTo

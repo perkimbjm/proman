@@ -34,7 +34,7 @@ models:
 
   District:
       id: id
-      code: integer
+      code: string
       name: string
       slug: string
       timestamps: true
@@ -43,7 +43,7 @@ models:
 
   Village:
       id: id
-      code: integer
+      code: string
       name: string
       district_id: id foreign:districts
       slug: string
